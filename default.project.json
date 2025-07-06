@@ -1,0 +1,43 @@
+{
+  "name": "template",
+  "tree": {
+    "$className": "DataModel",
+    "ReplicatedStorage": {
+      "$className": "ReplicatedStorage",
+      "TS": {
+        "$path": "out/shared"
+      },
+      "rbxts_include": {
+        "node_modules": {
+          "$className": "Folder",
+          "@flamework": {
+            "$path": "node_modules/@flamework"
+          },
+          "@rbxts": {
+            "$path": "node_modules/@rbxts"
+          }
+        },
+        "$path": "include"
+      }
+    },
+    "ServerScriptService": {
+      "$className": "ServerScriptService",
+      "TS": {
+        "$path": "out/server"
+      }
+    },
+    "StarterPlayer": {
+      "$className": "StarterPlayer",
+      "StarterPlayerScripts": {
+        "$className": "StarterPlayerScripts",
+        "TS": {
+          "$path": "out/client"
+        }
+      }
+    }
+  },
+  "globIgnorePaths": [
+    "**/package.json",
+    "**/tsconfig.json"
+  ]
+}
