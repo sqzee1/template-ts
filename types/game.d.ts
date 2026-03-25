@@ -3,3 +3,9 @@ interface CharacterModel extends Model {
 	HumanoidRootPart: Part;
 	Head: Part;
 }
+
+interface Player extends Instance {
+	PlayerScripts: PlayerScripts;
+	PlayerGui: PlayerGui;
+	Backpack: Backpack;
+}
