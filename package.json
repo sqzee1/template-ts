@@ -26,7 +26,7 @@
     "typescript": "5.8.3"
   },
   "dependencies": {
-    "@axpecter/lync": "^2.1.0",
+    "@axpecter/lync": "^2.1.1",
     "@flamework/components": "^1.3.2",
     "@flamework/core": "^1.3.2",
     "@flamework/networking": "^1.3.2",
