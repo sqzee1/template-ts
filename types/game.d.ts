@@ -9,3 +9,7 @@ interface Player extends Instance {
 	PlayerGui: PlayerGui;
 	Backpack: Backpack;
 }
+
+interface PlayerTemplate {
+	Coins: number;
+}

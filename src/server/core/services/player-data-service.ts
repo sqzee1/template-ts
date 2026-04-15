@@ -1,7 +1,6 @@
 import { Service } from "@flamework/core";
 import ProfileStore from "@rbxts/profile-store";
 import { Players } from "@rbxts/services";
-import { PlayerTemplate } from "../data/player-template";
 
 type Profile = ProfileStore.Profile<PlayerTemplate>;
 @Service({})

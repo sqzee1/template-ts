@@ -33,6 +33,6 @@
 	},
 	
 	"exclude": [
-		"eslint.config.ts",
+		"eslint.config.js",
 	]
 }

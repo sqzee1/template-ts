@@ -8,7 +8,7 @@ export class CooldownService {
 		return `${player.UserId}:${action}`;
 	}
 
-	public onCooldown(player: Player, action: CooldownActionsType, duration: number): boolean {
+	public onCooldown(player: Player, action: string, duration: number): boolean {
 		const key = this.getKey(player, action);
 		const now = os.clock();
 		const lastUsed = this.cooldowns.get(key) ?? 0;
