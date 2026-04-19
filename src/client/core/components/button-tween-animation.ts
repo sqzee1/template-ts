@@ -1,6 +1,6 @@
-import type { OnStart } from "@flamework/core";
+import type { OnStart } from '@flamework/core';
 
-import BaseButtonAnimation from "./base-button-animation";
+import BaseButtonAnimation from './base-button-animation';
 
 export default abstract class ButtonTweenAnimation<A extends {} = {}, I extends GuiButton = GuiButton>
 	extends BaseButtonAnimation<A, I>

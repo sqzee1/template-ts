@@ -1,4 +1,4 @@
-import { Players } from "@rbxts/services";
+import { Players } from '@rbxts/services';
 
 export const Player = Players.LocalPlayer;
-export const PlayerGui = Player.WaitForChild("PlayerGui") as PlayerGui;
+export const PlayerGui = Player.WaitForChild('PlayerGui') as PlayerGui;

@@ -1,7 +1,6 @@
-import { Modding, Service, type OnStart } from "@flamework/core";
-
-import type { OnPlayerJoin } from "server/core/hooks-manager/hooks";
-import type { OnCharacterAdd, OnCharacterRemove } from "shared/hooks/hooks";
+import { Modding, type OnStart, Service } from '@flamework/core';
+import type { OnPlayerJoin } from 'server/core/hooks-manager/hooks';
+import type { OnCharacterAdd, OnCharacterRemove } from 'shared/hooks/hooks';
 
 @Service({ loadOrder: 0 })
 export class CharacterAddService implements OnStart, OnPlayerJoin {

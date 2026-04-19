@@ -1,6 +1,6 @@
-import type { OnStart } from "@flamework/core";
-import { BaseComponent } from "@flamework/components";
-import { Bin } from "@rbxts/bin";
+import { BaseComponent } from '@flamework/components';
+import type { OnStart } from '@flamework/core';
+import { Bin } from '@rbxts/bin';
 
 export default abstract class BaseButtonAnimation<A extends {} = {}, I extends GuiButton = GuiButton>
 	extends BaseComponent<A, I>

@@ -1,7 +1,6 @@
-import { Modding, Controller, type OnStart } from "@flamework/core";
-
-import type { OnCharacterAdd, OnCharacterRemove } from "shared/hooks/hooks";
-import { Player } from "client/core/utility/utility";
+import { Controller, Modding, type OnStart } from '@flamework/core';
+import { Player } from 'client/core/utility/utility';
+import type { OnCharacterAdd, OnCharacterRemove } from 'shared/hooks/hooks';
 
 @Controller({ loadOrder: 0 })
 export class CharacterAddController implements OnStart {

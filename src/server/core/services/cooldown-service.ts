@@ -1,4 +1,4 @@
-import { Service } from "@flamework/core";
+import { Service } from '@flamework/core';
 
 @Service({})
 export class CooldownService {

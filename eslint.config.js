@@ -1,9 +1,9 @@
-import eslint from "@eslint/js";
-import prettierRecommended from "eslint-plugin-prettier/recommended";
-import roblox from "eslint-plugin-roblox-ts";
-import simpleImportSort from "eslint-plugin-simple-import-sort";
-import unusedImports from "eslint-plugin-unused-imports";
-import tseslint from "typescript-eslint";
+import eslint from '@eslint/js';
+import prettierRecommended from 'eslint-plugin-prettier/recommended';
+import roblox from 'eslint-plugin-roblox-ts';
+import simpleImportSort from 'eslint-plugin-simple-import-sort';
+import unusedImports from 'eslint-plugin-unused-imports';
+import tseslint from 'typescript-eslint';
 
 export default [
 	eslint.configs.recommended,
@@ -12,30 +12,31 @@ export default [
 	roblox.configs.recommended,
 	{
 		plugins: {
-			"simple-import-sort": simpleImportSort,
+			'simple-import-sort': simpleImportSort,
 		},
 		rules: {
-			"simple-import-sort/imports": "error",
-			"simple-import-sort/exports": "error",
+			'simple-import-sort/imports': 'error',
+			'simple-import-sort/exports': 'error',
+			'@typescript-eslint/no-empty-object-type': 'off',
 		},
 	},
 	{
 		plugins: {
-			"unused-imports": unusedImports,
+			'unused-imports': unusedImports,
 		},
 		rules: {
-			"unused-imports/no-unused-imports": "error",
-			"unused-imports/no-unused-vars": [
-				"warn",
+			'unused-imports/no-unused-imports': 'error',
+			'unused-imports/no-unused-vars': [
+				'warn',
 				{
-					varsIgnorePattern: "^_",
-					argsIgnorePattern: "^_",
+					varsIgnorePattern: '^_',
+					argsIgnorePattern: '^_',
 				},
 			],
 		},
 	},
 	{
-		ignores: ["out/**"],
+		ignores: ['out/**'],
 	},
 	prettierRecommended,
 ];

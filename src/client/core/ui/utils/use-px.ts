@@ -1,5 +1,5 @@
-import { useCamera, useDebounceState, useEventListener } from "@rbxts/pretty-react-hooks";
-import { useMemo } from "@rbxts/react";
+import { useCamera, useDebounceState, useEventListener } from '@rbxts/pretty-react-hooks';
+import { useMemo } from '@rbxts/react';
 
 interface ScaleFunction {
 	/**
@@ -47,7 +47,7 @@ export function usePx(): ScaleFunction {
 		leading: true,
 	});
 
-	useEventListener(camera.GetPropertyChangedSignal("ViewportSize"), () => {
+	useEventListener(camera.GetPropertyChangedSignal('ViewportSize'), () => {
 		setScale(calculateScale(camera.ViewportSize));
 	});
 
