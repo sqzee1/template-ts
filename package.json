@@ -14,6 +14,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@biomejs/biome": "2.4.12",
     "@eslint/js": "^10.0.1",
     "@rbxts/compiler-types": "3.0.0-types.0",
     "@rbxts/types": "^1.0.916",
