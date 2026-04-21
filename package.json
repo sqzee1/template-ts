@@ -4,11 +4,11 @@
   "description": "",
   "main": "index.js",
   "type": "module",
-  "scripts": {
+    "scripts": {
     "serve": "rojo serve default.project.json",
     "build": "rbxtsc",
     "watch": "rbxtsc -w",
-    "lint": "eslint src"
+    "check": "biome check --write ./src"
   },
   "keywords": [],
   "author": "",

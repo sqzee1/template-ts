@@ -1,4 +1,4 @@
-import { Networking } from '@flamework/networking';
+import { Networking } from "@flamework/networking";
 
 interface ClientToServerEvents {}
 

@@ -1,6 +1,6 @@
-import { Service } from '@flamework/core';
-import ProfileStore from '@rbxts/profile-store';
-import { Players } from '@rbxts/services';
+import { Service } from "@flamework/core";
+import ProfileStore from "@rbxts/profile-store";
+import { Players } from "@rbxts/services";
 
 type Profile = ProfileStore.Profile<PlayerTemplate>;
 @Service({})
@@ -10,7 +10,7 @@ export class PlayerDataService {
   };
 
   private Profiles = new Map<Player, Profile>();
-  private PlayerDataStore = ProfileStore.New('PlayerDataStore', this.Template);
+  private PlayerDataStore = ProfileStore.New("PlayerDataStore", this.Template);
 
   private initializePlayerData(player: Player, profile: Profile) {}
 
@@ -26,13 +26,13 @@ export class PlayerDataService {
     });
 
     if (!profile) {
-      player.Kick('Failed to load data');
+      player.Kick("Failed to load data");
       return;
     }
 
     profile.OnSessionEnd.Connect(() => {
       this.Profiles.delete(player);
-      player.Kick('Session end');
+      player.Kick("Session end");
     });
 
     if (player.Parent === Players) {
