@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "type": "module",
-    "scripts": {
+  "scripts": {
     "serve": "rojo serve default.project.json",
     "build": "rbxtsc",
     "watch": "rbxtsc -w",
@@ -15,10 +15,8 @@
   "license": "ISC",
   "devDependencies": {
     "@biomejs/biome": "2.4.12",
-    "@eslint/js": "^10.0.1",
     "@rbxts/compiler-types": "3.0.0-types.0",
     "@rbxts/types": "^1.0.916",
-    "jiti": "^2.6.1",
     "roblox-ts": "3.0.0",
     "typescript": "^5.9.3"
   },
