@@ -3,6 +3,7 @@ import ProfileStore from "@rbxts/profile-store";
 import { Players } from "@rbxts/services";
 
 type Profile = ProfileStore.Profile<PlayerTemplate>;
+
 @Service({})
 export class PlayerDataService {
   private Template: PlayerTemplate = {

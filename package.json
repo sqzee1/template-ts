@@ -37,7 +37,7 @@
     "@rbxts/planck": "^1.0.0",
     "@rbxts/pretty-react-hooks": "^0.6.4",
     "@rbxts/profile-store": "^1.0.3",
-    "@rbxts/quickzone": "^1.4.1",
+    "@rbxts/quickzone": "^1.4.3",
     "@rbxts/react": "^17.3.7-ts.1",
     "@rbxts/react-charm": "^0.3.0",
     "@rbxts/react-roblox": "^17.3.7-ts.1",

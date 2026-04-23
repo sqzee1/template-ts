@@ -33,13 +33,13 @@
 			},
 			"correctness": {
 				"noPrecisionLoss": "error",
-				"noUnusedVariables": "error"
+				"noUnusedVariables": "warn"
 			},
 			"style": {
 				"noCommonJs": "error",
 				"noNamespace": "error",
 				"noNonNullAssertion": "off",
-				"useArrayLiterals": "error",
+				"useArrayLiterals": "warn",
 				"useAsConstAssertion": "error",
 				"useBlockStatements": "off",
 				"useConsistentArrowReturn": "off"

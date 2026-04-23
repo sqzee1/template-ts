@@ -1,15 +1,15 @@
 interface CharacterModel extends Model {
-	Humanoid: Humanoid;
-	HumanoidRootPart: Part;
-	Head: Part;
+  Humanoid: Humanoid;
+  HumanoidRootPart: Part;
+  Head: Part;
 }
 
 interface Player extends Instance {
-	PlayerScripts: PlayerScripts;
-	PlayerGui: PlayerGui;
-	Backpack: Backpack;
+  PlayerScripts: PlayerScripts;
+  PlayerGui: PlayerGui;
+  Backpack: Backpack;
 }
 
 interface PlayerTemplate {
-	Coins: number;
+  Coins: number;
 }
