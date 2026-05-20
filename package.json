@@ -16,7 +16,7 @@
   "devDependencies": {
     "@biomejs/biome": "2.4.12",
     "@rbxts/compiler-types": "3.0.0-types.0",
-    "@rbxts/types": "^1.0.919",
+    "@rbxts/types": "^1.0.921",
     "roblox-ts": "3.0.0",
     "typescript": "^5.9.3"
   },
@@ -38,13 +38,13 @@
     "@rbxts/planck": "^1.0.0",
     "@rbxts/pretty-react-hooks": "^0.6.4",
     "@rbxts/profile-store": "^1.0.3",
-    "@rbxts/quickzone": "^1.4.5",
+    "@rbxts/quickzone": "^1.4.6",
     "@rbxts/react": "^17.3.7-ts.1",
     "@rbxts/react-charm": "^0.3.0",
     "@rbxts/react-roblox": "^17.3.7-ts.1",
     "@rbxts/ripple": "^0.10.2",
     "@rbxts/services": "^1.6.0",
-    "@rbxts/tether": "^1.4.18",
+    "@rbxts/tether": "^1.4.21",
     "@rbxts/ui-labs": "^2.4.2"
   }
 }
