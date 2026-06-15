@@ -45,6 +45,9 @@
     "@rbxts/ripple": "^0.10.2",
     "@rbxts/services": "^1.6.0",
     "@rbxts/tether": "^1.4.21",
-    "@rbxts/ui-labs": "^2.4.2"
+    "@rbxts/ui-labs": "^2.4.2",
+    "@rbxts/vide": "^0.6.1",
+    "@rbxts/vide-charm": "^0.3.0",
+    "@rbxts/vide-ripple": "^0.10.2"
   }
 }
