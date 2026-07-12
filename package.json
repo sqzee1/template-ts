@@ -16,7 +16,7 @@
   "devDependencies": {
     "@biomejs/biome": "2.4.12",
     "@rbxts/compiler-types": "3.0.0-types.0",
-    "@rbxts/types": "^1.0.925",
+    "@rbxts/types": "^1.0.938",
     "roblox-ts": "3.0.0",
     "typescript": "^5.9.3"
   },
