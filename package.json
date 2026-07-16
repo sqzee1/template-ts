@@ -16,7 +16,7 @@
   "devDependencies": {
     "@biomejs/biome": "2.4.12",
     "@rbxts/compiler-types": "3.0.0-types.0",
-    "@rbxts/types": "^1.0.938",
+    "@rbxts/types": "^1.0.939",
     "roblox-ts": "3.0.0",
     "typescript": "^5.9.3"
   },
@@ -27,8 +27,8 @@
     "@rbxts/allocator": "^1.1.2",
     "@rbxts/array-utils": "^1.0.2",
     "@rbxts/bin": "^1.4.0",
-    "@rbxts/charm": "^0.10.0",
-    "@rbxts/charm-sync": "^0.3.0",
+    "@rbxts/charm": "^0.11.0",
+    "@rbxts/charm-sync": "^0.4.0",
     "@rbxts/flamework-binary-serializer": "^0.7.0",
     "@rbxts/flamework-meta-utils": "^1.0.7",
     "@rbxts/iris": "^2.3.1-ts.1",
@@ -39,8 +39,8 @@
     "@rbxts/pretty-react-hooks": "^0.6.4",
     "@rbxts/profile-store": "^1.0.3",
     "@rbxts/quickzone": "^1.4.6",
-    "@rbxts/react": "^17.3.7-ts.1",
-    "@rbxts/react-charm": "^0.3.0",
+    "@rbxts/react": "^17.3.7-ts.2",
+    "@rbxts/react-charm": "^0.4.0",
     "@rbxts/react-roblox": "^17.3.7-ts.1",
     "@rbxts/ripple": "^0.10.2",
     "@rbxts/services": "^1.6.0",
@@ -49,7 +49,7 @@
     "@rbxts/trash": "^1.0.10",
     "@rbxts/ui-labs": "^2.4.2",
     "@rbxts/vide": "^0.6.1",
-    "@rbxts/vide-charm": "^0.3.0",
+    "@rbxts/vide-charm": "^0.4.0",
     "@rbxts/vide-ripple": "^0.10.2"
   }
 }
