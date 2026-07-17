@@ -13,6 +13,9 @@
           "@flamework": {
             "$path": "node_modules/@flamework"
           },
+          "@kyrorblx": {
+            "$path": "node_modules/@kyrorblx"
+          },
           "@rbxts": {
             "$path": "node_modules/@rbxts"
           },
