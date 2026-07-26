@@ -15,11 +15,16 @@
 - **Debug:** `@kyrorblx/konsole`
 - **Utils:** `@rbxts/array-utils`, `@rbxts/object-utils`, `@rbxts/flamework-meta-utils`, `@rbxts/services`
 
+## setup
+
+```bash
+bun i
+bun run build   # rbxtsc
+```
+
 ## Scripts
 
 ```bash
 bun run serve   # rojo serve
-bun run build   # rbxtsc
 bun run watch   # rbxtsc -w
-bun run check   # biome check --write ./src
 ```
