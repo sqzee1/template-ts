@@ -18,9 +18,6 @@
           },
           "@rbxts": {
             "$path": "node_modules/@rbxts"
-          },
-          "@rbxts-js": {
-            "$path": "node_modules/@rbxts-js"
           }
         },
         "$path": "include"
