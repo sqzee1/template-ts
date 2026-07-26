@@ -8,7 +8,7 @@
 - **Networking:** `@flamework/networking`, `@rbxts/tether`, `@rbxts/charm-sync`, `@rbxts/flamework-binary-serializer`
 - **Data:** `@rbxts/profile-store`
 - **State:** `@rbxts/charm`, `@rbxts/ripple`
-- **UI:** `@rbxts/vide`, `@rbxts/vide-charm`, `@rbxts/vide-ripple`, `@rbxts/ui-labs`, `@rbxts/iris`
+- **UI:** `@rbxts/vide`, `@rbxts/vide-charm`, `@rbxts/vide-ripple`, `@rbxts/ui-labs`, `@rbxts/iris`, `@boshyxd/cool-transitions`
 - **ECS:** `@rbxts/jecs`, `@rbxts/planck`
 - **Cleanup:** `@rbxts/bin`, `@rbxts/trash`
 - **Spatial Queries:** `@rbxts/quickzone`

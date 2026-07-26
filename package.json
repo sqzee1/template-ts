@@ -24,6 +24,7 @@
     "typescript": "^5.9.3"
   },
   "dependencies": {
+    "@boshyxd/cool-transitions": "^0.2.0",
     "@flamework/components": "^1.3.2",
     "@flamework/core": "^1.3.2",
     "@flamework/networking": "^1.3.2",
