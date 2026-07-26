@@ -15,7 +15,7 @@
 - **Debug:** `@kyrorblx/konsole`
 - **Utils:** `@rbxts/array-utils`, `@rbxts/object-utils`, `@rbxts/flamework-meta-utils`, `@rbxts/services`
 
-## setup
+## Setup
 
 ```bash
 bun i
