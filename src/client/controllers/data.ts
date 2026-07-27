@@ -1,19 +1,9 @@
-import { Controller, OnStart } from "@flamework/core";
-import { client } from "@rbxts/charm-sync";
-import { getProfileData, setProfileData } from "client/utility/data-state";
-import { Message, messaging } from "shared/messaging";
+import { Controller } from "@flamework/core";
+import { getProfileData } from "client/utility/data-state";
 
 @Controller({})
-export class DataController implements OnStart {
+export class DataController {
   public getData(): PlayerTemplate | undefined {
     return getProfileData();
-  }
-
-  onStart(): void {
-    client.addSignals({ Profile: setProfileData });
-
-    messaging.client.on(Message.SyncData, (payloads) => {
-      client.patch(payloads);
-    });
   }
 }

@@ -1,50 +1,42 @@
 import { OnStart, Service } from "@flamework/core";
-import { Getter, Setter, signal, subscribe } from "@rbxts/charm";
+import { Getter, Setter, subscribe } from "@rbxts/charm";
 import { server } from "@rbxts/charm-sync";
 import ProfileStore from "@rbxts/profile-store";
 import { Players, RunService } from "@rbxts/services";
 import { OnPlayerJoin, OnPlayerLeave } from "server/hook-managers/hooks";
-import { Message, messaging, ProfileSyncSignals } from "shared/messaging";
+import { getProfileSignal, removeProfileSignal, template } from "shared/states/profile-state";
 
 type Profile = ProfileStore.Profile<PlayerTemplate>;
 
 @Service({})
 export class ProfileService implements OnPlayerJoin, OnPlayerLeave, OnStart {
-  private template: PlayerTemplate = {
-    Coins: 100,
-  };
-
   private profiles = new Map<Player, Profile>();
-  private getters = new Map<Player, Getter<PlayerTemplate>>();
-  private setters = new Map<Player, Setter<PlayerTemplate>>();
   private unsubscribes = new Map<Player, () => void>();
 
-  private PlayerDataStore = RunService.IsStudio() ? ProfileStore.New("PlayerDataStore", this.template).Mock : ProfileStore.New("PlayerDataStore", this.template);
+  private PlayerDataStore = RunService.IsStudio() ? ProfileStore.New("PlayerDataStore", template).Mock : ProfileStore.New("PlayerDataStore", template);
 
   private initializePlayerData(player: Player, profile: Profile): void {
-    const [getData, setData] = signal({ ...profile.Data });
+    const [getData, setData] = getProfileSignal(player.UserId);
+
+    setData({ ...profile.Data });
 
     const unsubscribe = subscribe(getData, (state) => {
       profile.Data = state;
     });
 
-    this.getters.set(player, getData);
-    this.setters.set(player, setData);
     this.unsubscribes.set(player, unsubscribe);
-
-    server.addSignalsToClient(player, { Profile: getData });
   }
 
   public getProfile(player: Player): Profile | undefined {
     return this.profiles.get(player);
   }
 
-  public getGetter(player: Player): Getter<PlayerTemplate> | undefined {
-    return this.getters.get(player);
+  public getGetter(player: Player): Getter<PlayerTemplate> {
+    return getProfileSignal(player.UserId)[0];
   }
 
-  public getSetter(player: Player): Setter<PlayerTemplate> | undefined {
-    return this.setters.get(player);
+  public getSetter(player: Player): Setter<PlayerTemplate> {
+    return getProfileSignal(player.UserId)[1];
   }
 
   private initProfile(player: Player): void {
@@ -75,9 +67,8 @@ export class ProfileService implements OnPlayerJoin, OnPlayerLeave, OnStart {
   private cleanup(player: Player): void {
     this.unsubscribes.get(player)?.();
     this.unsubscribes.delete(player);
-    this.getters.delete(player);
-    this.setters.delete(player);
     this.profiles.delete(player);
+    removeProfileSignal(player.UserId);
     server.removeClient(player);
   }
 
@@ -98,10 +89,6 @@ export class ProfileService implements OnPlayerJoin, OnPlayerLeave, OnStart {
   }
 
   onStart(): void {
-    server.connect<ProfileSyncSignals>((player, payloads) => {
-      messaging.client.emit(player, Message.SyncData, payloads);
-    });
-
     game.BindToClose(() => {
       for (const player of Players.GetPlayers()) {
         task.spawn(() => {
