@@ -7,11 +7,12 @@
 - **Framework:** `@flamework/core`, `@flamework/components`
 - **Networking:** `@flamework/networking`, `@rbxts/tether`, `@rbxts/charm-sync`, `@rbxts/flamework-binary-serializer`
 - **Data:** `@rbxts/profile-store`
-- **State:** `@rbxts/charm`, `@rbxts/ripple`
+- **State:** `@rbxts/charm`, `@rbxts/ripple`, `@rbxts/lemon-signal`
 - **UI:** `@rbxts/vide`, `@rbxts/vide-charm`, `@rbxts/vide-ripple`, `@rbxts/ui-labs`, `@rbxts/iris`, `@boshyxd/cool-transitions`
 - **ECS:** `@rbxts/jecs`, `@rbxts/planck`
 - **Cleanup:** `@rbxts/bin`, `@rbxts/trash`
 - **Spatial Queries:** `@rbxts/quickzone`
+- **Input** `@rbxts/mechanism`
 - **Debug:** `@kyrorblx/konsole`
 - **Utils:** `@rbxts/array-utils`, `@rbxts/object-utils`, `@rbxts/flamework-meta-utils`, `@rbxts/services`
 
