@@ -29,6 +29,20 @@ export function shuffle<T extends defined>(items: readonly T[]): T[] {
   return result;
 }
 
+export function randomPointInModel(model: Model, randomY = false, inset = 0): Vector3 {
+  const [cframe, size] = model.GetBoundingBox();
+
+  const halfX = math.max(0, (size.X - inset) / 2);
+  const halfY = math.max(0, (size.Y - inset) / 2);
+  const halfZ = math.max(0, (size.Z - inset) / 2);
+
+  const x = randomFloat(-halfX, halfX);
+  const y = randomY ? randomFloat(-halfY, halfY) : 0;
+  const z = randomFloat(-halfZ, halfZ);
+
+  return cframe.PointToWorldSpace(new Vector3(x, y, z));
+}
+
 export function randomFloat(min: number, max: number): number {
   return min + math.random() * (max - min);
 }
