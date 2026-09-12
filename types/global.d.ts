@@ -1,3 +1,5 @@
+// biome-ignore-all lint: Types are consumed externally
+
 type Maybe<T> = T | undefined;
 
 type NumberKeys<T> = {
