@@ -15,3 +15,11 @@ type NumberValues<T> = {
 type StringValues<T> = {
   [K in keyof T]: T[K] extends string ? T[K] : never;
 }[keyof T];
+
+interface WithInitializer {
+  initialize(): void;
+}
+
+interface WithDestroy {
+  destroy(): void;
+}

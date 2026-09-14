@@ -1,4 +1,5 @@
 import { Flamework } from "@flamework/core";
+import { FlameworkIgnited } from "shared/constants/standard";
 
 Flamework.addPaths("src/client/controllers");
 Flamework.addPaths("src/client/hook-managers");
@@ -8,3 +9,4 @@ Flamework.addPaths("src/shared/components");
 Flamework.addPaths("src/shared/utils");
 
 Flamework.ignite();
+FlameworkIgnited.Fire();
