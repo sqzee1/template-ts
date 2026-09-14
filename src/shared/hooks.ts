@@ -5,3 +5,11 @@ export interface OnCharacterAdd<Character extends CharacterModel = CharacterMode
 export interface OnCharacterRemove<Character extends CharacterModel = CharacterModel> {
   onCharacterRemove(character: Character): void;
 }
+
+export interface OnPreSimulation {
+  onPreSimulation(dt: number): void;
+}
+
+export interface OnPostSimulation {
+  onPostSimulation(dt: number): void;
+}
