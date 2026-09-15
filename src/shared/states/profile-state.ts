@@ -1,8 +1,10 @@
 import { Getter, Setter, signal } from "@rbxts/charm";
+import { DATA_VERSION } from "shared/data/migrations";
 
 type ProfileSignal = LuaTuple<[Getter<PlayerTemplate>, Setter<PlayerTemplate>]>;
 
 export const template: PlayerTemplate = {
+  Version: DATA_VERSION,
   Coins: 100,
 };
 

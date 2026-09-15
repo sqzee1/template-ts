@@ -13,5 +13,6 @@ interface Player extends Instance {
 }
 
 interface PlayerTemplate {
+  Version: number;
   Coins: number;
 }

@@ -4,9 +4,12 @@ import { server } from "@rbxts/charm-sync";
 import ProfileStore from "@rbxts/profile-store";
 import { Players, RunService } from "@rbxts/services";
 import { OnPlayerJoin, OnPlayerLeave } from "server/hook-managers/hooks";
+import { MigrationStatus, type MutableData, migrate } from "shared/data/migrations";
 import { getProfileSignal, removeProfileSignal, template } from "shared/states/profile-state";
 
 type Profile = ProfileStore.Profile<PlayerTemplate>;
+
+const FUTURE_DATA_KICK_REASON = "Your save was written by a newer version of the game. Rejoin once this server updates.";
 
 @Service({})
 export class ProfileService implements OnPlayerJoin, OnPlayerLeave, OnStart {
@@ -50,6 +53,15 @@ export class ProfileService implements OnPlayerJoin, OnPlayerLeave, OnStart {
       player.Kick("Failed to load data");
       return;
     }
+
+    const status = migrate(profile.Data as unknown as MutableData);
+    if (status === MigrationStatus.FromFuture) {
+      profile.EndSession();
+      player.Kick(FUTURE_DATA_KICK_REASON);
+      return;
+    }
+
+    profile.Reconcile();
 
     profile.OnSessionEnd.Connect(() => {
       this.cleanup(player);
