@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "permissions": {
+    "allow": [
+      "Bash(bun run build)",
+      "Bash(bun run check)",
+      "Bash(bun run check:*)",
+      "Bash(bunx biome check:*)",
+      "Bash(npx rbxtsc:*)",
+      "Bash(git status:*)",
+      "Bash(git diff:*)",
+      "Bash(git log:*)"
+    ]
+  }
+}
