@@ -31,6 +31,7 @@
     "@kyrorblx/konsole": "^0.1.11",
     "@rbxts/array-utils": "^1.0.2",
     "@rbxts/bin": "^1.4.0",
+    "@rbxts/camera-shaker": "^1.0.8",
     "@rbxts/charm": "^0.11.0",
     "@rbxts/charm-sync": "^0.4.0",
     "@rbxts/flamework-binary-serializer": "^0.7.0",
