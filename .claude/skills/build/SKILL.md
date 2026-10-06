@@ -1,75 +1,91 @@
 ---
-name: studs-build
-description: Constrói e decora o mapa no Roblox Studio (via MCP Roblox_Studio) no estilo do jogo — peças em blocos com MaterialVariant "Studs", tamanhos múltiplos de 0.25 stud, tudo numa pasta própria, sem z-fighting, sem objetos enfiados em outros e verificado por screenshot. Use sempre que o usuário pedir para construir, decorar, adicionar props/estruturas/cenário, melhorar o mapa, ilhas, mar, vegetação ou qualquer build no Studio.
+name: build
+description: Constrói e decora mapas no Roblox Studio via MCP Roblox_Studio, em qualquer place e em qualquer estilo — studs/blocos, liso, low-poly, realista ou o padrão que o usuário pedir/mostrar em imagem. Tudo numa pasta própria, sem z-fighting, sem objetos enfiados em outros, apoiado corretamente, modelos organizados e verificados por checagens e screenshot. Use sempre que o usuário pedir para construir, decorar, modelar, adicionar props/estruturas/cenário, melhorar um mapa, criar ilhas, mar, vegetação, landmarks ou qualquer build no Studio.
 ---
 
-# Studs Build
+# Build
 
-Builds feitos direto no Studio com `mcp__Roblox_Studio__execute_luau`, seguindo o padrão visual do mapa e evitando os erros já cometidos.
+Skill genérica para construir em qualquer mapa com `mcp__Roblox_Studio__execute_luau`. Nada aqui é de um jogo só: o que depende do mapa vem do **survey** e do **perfil**; o estilo vem do mapa ou do pedido.
 
-## Fluxo obrigatório
+Arquivos (colar o conteúdo no topo de cada `execute_luau`, cada chamada é isolada):
+- [survey.luau](survey.luau) — mede o place: materiais, variants, grid de tamanhos, paleta, chão, água, limites, fonte, streaming.
+- [helpers.luau](helpers.luau) — `STYLES` + `CONFIG` + funções (`part`, `stack`, `attach`, `findSpot`, `isFree`, `groundAt`, `record`...). Depois de colar: `useStyle("<estilo>", { overrides do perfil })`.
+- [checks.luau](checks.luau) — z-fighting (corrige com `FIX_ZFIGHT = true`) e objetos atravessando outros. Ajustar `ROOT`/`SOFT`.
+- `profiles/<place>.md` — perfil salvo de cada place.
 
-1. **Conectar**: `list_roblox_studios` → pegar `studio_id`. `get_studio_state` deve estar em `Edit`.
-2. **Medir antes de construir** (nunca chutar):
-   - Estilo: contar `Material`/`MaterialVariant` das peças do mapa, paleta de cores dos props existentes, fonte dos textos (`FontFace`).
-   - Geometria: limites da ilha, Y do chão, Y da água, footprint de cada base/ponte/arena, props existentes.
-   - Valores atuais conhecidos em [reference.md](reference.md) — reconfirmar se o mapa mudou.
-3. **Pasta de destino**: tudo novo vai em `Workspace.Changes` (ou a pasta que o usuário pedir), uma subpasta/modelo por tema. Nunca misturar com `Map`, `Bases`, `Event`. Se for inevitável tocar em algo existente (ex.: tufo atravessando piso), fazer o mínimo e **relatar**.
-4. **Cada chamada idempotente**: destruir a subpasta do tema e recriar. Envolver em `ChangeHistoryService:TryBeginRecording/FinishRecording` (Ctrl+Z funciona). Cada `execute_luau` é isolado: colar o preâmbulo de [helpers.luau](helpers.luau) no topo.
-5. **Posicionar com checagem**: achar espaço livre com `findSpot`/`isFree` contra Bases, Event, props do Map e o que já existe em Changes.
-6. **Verificar** depois de cada tema:
-   - [checks.luau](checks.luau) → z-fighting (tem que dar 0) e intersecção entre objetos (tem que dar 0, exceto contatos intencionais).
-   - `screen_capture` com `camera_position` + `look_at_position` apontando pro que foi construído. Olhar de verdade: flutuando? atravessando? proporção?
-7. **Relatar**: o que foi criado (subpastas, contagem de peças/luzes), o que foi tocado fora da pasta, o que não deu pra verificar (animação/partículas só rodam em play).
+## Fluxo
 
-## Regras de estilo
+1. **Conectar**: `list_roblox_studios` → `studio_id` (confirmar o place pelo nome). `get_studio_state` em `Edit`.
+2. **Perfil do mapa**: existe `profiles/<place>.md`? Reconfirmar rápido (chão/limites) e usar. Senão rodar `survey.luau`, investigar o que faltar (props típicos, áreas de gameplay, cantos livres) e salvar: estilo + overrides, paleta, zonas proibidas, zonas livres, pastas existentes, sistemas que mexem no mapa.
+3. **Estilo**: por padrão o que o survey mostra. Pedido do usuário (outro estilo, imagem de referência, "igual a X") manda. Registrar no perfil se virar padrão.
+4. **Pasta**: tudo novo em `CONFIG.ROOT` (padrão `Workspace.Changes` ou o nome pedido), uma subpasta/`Model` por tema, nomes claros (`Lighthouse`, `Lighthouse/Tower`, `Lighthouse/Lamp`). Não misturar com pastas do jogo. Tocar em algo existente: mínimo e **relatado**.
+5. **Construir por tema**, cada chamada: helpers + `useStyle` no topo; `freshFolder` (idempotente); tudo em `record(label, fn)`; posição via `findSpot`/`isFree` contra `blockers()`; altura do chão com `groundAt`; empilhar com `stack`; peça presa em outra com `attach`.
+6. **Verificar cada tema**: `checks.luau` → `zfight=0` e `crossings=0` (exceto contato intencional, justificado). Se z-fight: rodar com `FIX_ZFIGHT = true` e checar de novo. Depois `screen_capture` de perto e de longe (`camera_position`/`look_at_position`): flutuando? atravessando? proporção? cor fora da paleta?
+7. **Relatar**: o que foi criado (pastas, contagem de peças e luzes), o que foi tocado fora, o que só dá pra ver em play.
 
-- `Material = Plastic` (ou `SmoothPlastic` para metal/nuvem) com `MaterialVariant = "Studs"`. Exceções: `Neon` (brilho: fogo, lâmpadas, gemas) e `Glass` — sem variant.
-- Tamanhos e posições em múltiplos de **0.25**. Peças planas no chão alinhadas aos eixos (sem rotação quebrada) para os studs baterem.
-- Visual de blocos: formas escalonadas (telhados em degraus, montanhas em terraços, copas em cubos). Nada de cilindros/meshes novos.
-- Paleta coerente com o mapa (ver reference.md). Madeira, pedra, telhado vermelho, verdes do mapa.
-- Decoração: `CanTouch = false`, `CanQuery = false`, `Anchored = true`. `CanCollide = true` só em estruturas onde o jogador anda/esbarra perto; tudo longe ou pequeno (flores, manchas, nuvens, mar) `false`.
+## Estilos
+
+| Estilo | Material / variant | Grid | Rotação | Formas |
+|---|---|---|---|---|
+| `studs` | `Plastic` + `"Studs"` (ou variant do mapa) | 0.25 | só 90° | só blocos; curvas viram degraus |
+| `smooth` | `SmoothPlastic` | 0.25 | só 90° | blocos, wedge, cilindro |
+| `lowpoly` | `SmoothPlastic`, cores chapadas | 0.05 | livre | wedges/corner wedges para facetas |
+| `realistic` | material por peça (`Wood`, `Slate`, `Brick`, `Metal`...) | livre (0) | livre | todas; meshes só se pedido |
+| custom | o que o usuário pedir/imagem mostrar | definir | definir | definir |
+
+`useStyle("studs", { VARIANT = "MeuVariant", GRID = 0.5 })` ajusta. `part(..., { shape = "Wedge" })` falha em estilo só-blocos, a menos que `forceShape = true` (usuário pediu).
+
+Regras de qualquer estilo:
+- Cores da paleta do perfil (ou da referência). Variar tom só em volta das existentes.
+- Decoração: `Anchored`, `CanTouch = false`, `CanQuery = false`. `CanCollide = true` só onde o jogador anda/esbarra.
 - `CastShadow = false` em neon, nuvens, água, manchas de chão.
-- Luzes: `PointLight`/`SpotLight` com `Shadows = false`, poucas (relatar total). Feixes de luz com `Beam` (Width0→Width1, Transparency 0.45→1, LightEmission 1), nunca barra neon sólida.
-- Textos em peça: `SurfaceGui`/`BillboardGui` com a fonte do jogo, `TextScaled`, `UIStroke`.
-- Sem comentários em código Luau (regra do usuário).
+- Luz: `PointLight`/`SpotLight` com `Shadows = false`, contadas no relatório. Feixe com `Beam` (Width0 pequeno → Width1 grande, Transparency 0.45 → 1, LightEmission 1), nunca barra neon sólida.
+- Neon só em detalhe pequeno. Superfície grande em cor clara normal (Bloom estoura).
+- Texto em peça: fonte do perfil, `TextScaled`, `UIStroke`.
+- Sem comentários em código Luau.
 
-## Erros já cometidos — nunca repetir
+## Modelo correto
+
+- **Apoio**: empilhar acumulando `y` (`stack`); cada peça no topo real da anterior. Nunca somar offsets à mão.
+- **Base cobre o que está em cima**: calcular o bbox do que vai em cima; a base cobre bbox + margem.
+- **Encaixe**: peça presa em outra via `attach` com o CFrame final da mãe. `+θ` em Z sobe a ponta +X.
+- **Sem interpenetração** entre objetos diferentes (checks `crossings`). Dentro do mesmo modelo, encaixe intencional pode sobrepor, mas sem faces coplanares.
+- **Organização**: `Model` por objeto com `PrimaryPart` quando fizer sentido mover; peças com nome do que são (`Roof`, `Door`, `Leaf`), não `Part`.
+
+## Z-fighting (qualquer estilo)
+
+Duas faces paralelas, na mesma posição (< 0.02) e sobrepostas piscam. Evitar na construção:
+- Forma composta = faixas **disjuntas** ou alturas diferentes. Manchas não se encostam.
+- Cruzamento de vigas/corrimões: uma peça 0.05 mais alta/baixa.
+- Octógono de duas caixas giradas 45°: uma 0.1 mais baixa.
+- Peça presa com a mesma espessura da base (bandeira = mastro): espessuras diferentes (0.15 vs 0.35).
+- Terraços/lobos do mesmo nível: alturas distintas.
+- Decal/textura/placa em parede: afastar ≥ 0.02 da face, ou usar `SurfaceGui`/`Decal` na própria peça.
+- `checks.luau` trata peças como caixas: `Ball`/`Cylinder` ficam fora; topo inclinado de wedge pode dar falso positivo — confirmar na foto.
+
+## Regras aprendidas (não repetir)
 
 | Erro | Regra |
 |---|---|
-| Z-fighting em manchas feitas de retângulos sobrepostos na mesma altura | Formas compostas = faixas **disjuntas** (sem sobreposição), ou alturas diferentes. Uma mancha não pode encostar em outra. |
-| Corrimões/vigas cruzando nos cantos com topo coplanar | Em cruzamentos, uma das peças 0.05 mais alta/baixa. |
-| Duas caixas iguais giradas 45° (octógono) com topo coplanar | Uma delas 0.1 mais baixa. |
-| Peça fina com mesma espessura da vizinha (bandeira = mastro) | Peça presa deve ser mais fina ou mais grossa que a base (ex.: 0.15 vs 0.35). |
-| Lobos/terraços do mesmo nível com a mesma altura | Alturas distintas por lobo (`h - k*1.5`), shores com topos diferentes (`-k*0.25`). |
-| Farol flutuando 1 stud acima das pedras | Empilhar acumulando `y += altura` e apoiar cada peça exatamente no topo da de baixo. Nunca somar offsets à mão. |
-| Casinha saindo da base do farol | Calcular o bbox de tudo que vai em cima e fazer a base cobrir esse bbox + margem. |
-| Farol/boias dentro da ilha por usar raio circular | A ilha é **quadrada**: testar `abs(dx)` e `abs(dz)` por eixo (`outsideIsland`). Diagonal chega a ~√2·metade. |
-| Árvores dentro das paredes dos terraços | Só aceitar a árvore se o bbox da copa (encolhido 10%) não tocar nenhuma peça da ilha; depois remover árvores que se sobrepõem entre si. |
-| Queries não enxergando peças | `GetPartBoundsInBox`/`GetPartsInPart` ignoram `CanQuery = false`: ligar temporariamente (`withQuery`) e restaurar. |
-| Peças da própria construção entrando na checagem | Filtrar pelo objeto (modelo filho direto de pasta), não pela peça. |
-| Pontas das asas soltas (rotação aplicada no centro errado) | Peça presa na ponta de outra: `child.CFrame = parent.CFrame * CFrame.new(offset)` usando o CFrame final da mãe. Sinal de rotação: `+θ` em Z sobe a ponta **+X**. |
-| Gaivotas dentro das ilhas na posição inicial | Posição inicial de edição = primeiro ponto do caminho animado, fora de tudo. |
-| `Random:NextBoolean` não existe | Usar `rng:NextNumber() < 0.5`. |
-| Mar terminando no horizonte | Oceano em tiles de 2048 (limite de tamanho de peça), 3×3. |
-| Neon forte estourando no Bloom | Neon só em detalhes pequenos; superfícies grandes em SmoothPlastic claro. |
+| Objeto dentro da área jogável por raio circular em mapa quadrado | Limites por eixo (`insideBounds`). |
+| Prop atravessando parede de terraço | Aceitar só se o bbox (encolhido ~10%) não tocar nada; depois remover sobreposições entre os próprios props. |
+| Query não enxergando peças | `GetPartBoundsInBox`/`GetPartsInPart`/raycast ignoram `CanQuery = false`: `withQuery` e restaurar. |
+| Checagem acusando a própria construção | Comparar por objeto (modelo filho direto de pasta), não por peça. |
+| Objeto animado dentro de outro na pose de edição | Pose de edição = primeiro ponto do caminho animado, fora de tudo. |
+| `Random:NextBoolean` não existe | `rng:NextNumber() < 0.5`. |
+| Peça gigante recusada / mar acabando no horizonte | Limite de 2048 por eixo: tiles (ex.: 3×3 de 2048). |
+| Props do mapa atravessando piso novo | Mudar a posição da construção; mover prop existente só no mínimo e relatado. |
 
 ## Animação e streaming
 
-- O place usa **StreamingEnabled**. Animação em `Script` com `RunContext = Client` dentro da pasta (roda só no cliente).
-- Todo modelo animado: `ModelStreamingMode = Atomic`.
-- O script registra modelos por `ChildAdded`/`ChildRemoved` do contêiner e captura `GetPivot()` na chegada. Nunca capturar tudo uma vez no início.
-- Guardar parâmetros por modelo em atributos (`Center`, `Radius`, `Speed`, `Phase`).
+- `workspace.StreamingEnabled` vem do survey.
+- Animação decorativa: `Script` com `RunContext = Client` dentro da pasta da build.
+- Com streaming: modelo animado `ModelStreamingMode = Atomic`; script registra modelos via `ChildAdded`/`ChildRemoved` e captura `GetPivot()` na chegada. Parâmetros em atributos (`Center`, `Radius`, `Speed`, `Phase`).
 
-## Região do boss (repintura)
+## Integração com sistemas do jogo
 
-`MapPaintController` (`src/client/controllers/map.ts`) repinta `Map` e `Changes` quando o boss muda a região. Toda vegetação nova recebe atributo `PaintKind`:
-- `terrain` — chão/grama plana, topos de grama.
-- `leaf` — folhas, copas, arbustos, pinheiros, coqueiros.
-- `grass` — caules, juncos, tufos, musgo.
-Pedra, terra, neve, pétalas e construções não recebem.
+Antes de decorar chão/vegetação, procurar no código sistemas que alteram o mapa em runtime (bioma, região, evento, dia/noite): grep por `Map`, `Terrain`, `Color`, `Tween`, `palette`, `region`, `biome`. Se existir, fazer a construção nova entrar nele (atributo/tag/pasta que ele usa) e relatar. Registrar no perfil.
 
 ## Perguntar só se necessário
 
-Seguir o padrão acima por padrão. Perguntar ao usuário apenas quando o pedido deixa um tema/local ambíguo e as escolhas mudam muito o resultado.
+Seguir o perfil por padrão. Perguntar só quando tema, local ou estilo forem ambíguos e a escolha mudar muito o resultado.
