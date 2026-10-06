@@ -19,7 +19,7 @@
   "devDependencies": {
     "@biomejs/biome": "2.4.12",
     "@rbxts/compiler-types": "3.0.0-types.0",
-    "@rbxts/types": "^1.0.955",
+    "@rbxts/types": "^1.0.956",
     "roblox-ts": "3.0.0",
     "typescript": "^5.9.3"
   },
@@ -32,8 +32,8 @@
     "@rbxts/array-utils": "^1.0.2",
     "@rbxts/bin": "^1.4.0",
     "@rbxts/camera-shaker": "^1.0.8",
-    "@rbxts/charm": "^0.11.0",
-    "@rbxts/charm-sync": "^0.4.0",
+    "@rbxts/charm": "^0.11.1",
+    "@rbxts/charm-sync": "^0.4.1",
     "@rbxts/flamework-binary-serializer": "^0.7.0",
     "@rbxts/flamework-meta-utils": "^1.0.7",
     "@rbxts/iris": "^2.3.1-ts.1",
@@ -50,7 +50,7 @@
     "@rbxts/trash": "^1.0.10",
     "@rbxts/ui-labs": "^2.4.2",
     "@rbxts/vide": "^0.6.1",
-    "@rbxts/vide-charm": "^0.4.0",
+    "@rbxts/vide-charm": "^0.4.1",
     "@rbxts/vide-ripple": "^0.10.2"
   }
 }
