@@ -4,6 +4,7 @@ Template de jogo Roblox em **roblox-ts + Flamework**. State com `@rbxts/charm` (
 
 - Padrões completos: [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) — ler antes de criar ou refatorar sistema.
 - Ordem de construção de features: [WORKFLOW.md](WORKFLOW.md).
+- Telemetria do painel Paragon (funis, compras, economia): [docs/PARAGON.md](docs/PARAGON.md).
 - Exemplo canônico de estilo: `FOVController` em [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) seção 3 (arquivo removido do repo; a doc tem a cópia integral).
 
 ## Comandos
@@ -56,3 +57,4 @@ Quando o usuário descrever um sistema com mais de uma peça, usar `/new-system`
 | `/new-component` | Novo component Flamework |
 | `/game-loop` | Criar/alterar o orquestrador |
 | `/arch-review` | Auditar mudanças contra estas regras |
+| `/paragon-analytics` | Implementar telemetria Paragon no jogo: funis/tutorial, compras, economia, eventos |
